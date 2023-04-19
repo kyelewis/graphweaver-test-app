@@ -1,0 +1,25 @@
+{
+	"name": "graphweaver-test-app",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"build": "echo 'not implemented yet'",
+		"start": "echo 'not implemented yet'",
+		"prettier": "prettier --write .",
+		"lint": "eslint --fix .",
+		"test": "npm run test:prettier && npm run test:tsc && npm run test:eslint && npm run test:unit",
+		"test:unit": "vitest run",
+		"test:prettier": "prettier --check .",
+		"test:tsc": "tsc --noEmit",
+		"test:eslint": "eslint ."
+	},
+	"private": true,
+	"license": "UNLICENSED",
+	"dependencies": {
+		"@exogee/graphweaver": "0.1.2",
+		"@exogee/graphweaver-apollo": "0.1.2"
+	},
+	"devDependencies": {
+		"@exogee/graphweaver-cli": "0.1.2"
+	}
+}
