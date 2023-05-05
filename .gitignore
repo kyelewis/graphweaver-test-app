@@ -2,3 +2,4 @@ node_modules
 dist
 graphweaver-config.js
 .env
+.graphweaver

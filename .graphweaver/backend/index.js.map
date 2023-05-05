@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../src/backend/index.ts"],
-  "sourcesContent": ["import 'reflect-metadata';\nimport GraphweaverApollo from '@exogee/graphweaver-apollo';\nimport { handlers, startServerAndCreateLambdaHandler } from '@as-integrations/aws-lambda';\n\nconsole.log(process.env);\n\nconst graphweaver = new GraphweaverApollo({\n\tresolvers: [],\n\tadminMetadata: { enabled: true },\n\tmikroOrmOptions: []\n});\n\nexport const handler = startServerAndCreateLambdaHandler(\n\tgraphweaver.server, \n    handlers.createAPIGatewayProxyEventRequestHandler(),\n{});\n\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,8BAAO;AACP,gCAA8B;AAC9B,wBAA4D;AAE5D,QAAQ,IAAI,QAAQ,GAAG;AAEvB,IAAM,cAAc,IAAI,0BAAAA,QAAkB;AAAA,EACzC,WAAW,CAAC;AAAA,EACZ,eAAe,EAAE,SAAS,KAAK;AAAA,EAC/B,iBAAiB,CAAC;AACnB,CAAC;AAEM,IAAM,cAAU;AAAA,EACtB,YAAY;AAAA,EACT,2BAAS,yCAAyC;AAAA,EACtD,CAAC;AAAC;",
-  "names": ["GraphweaverApollo"]
-}
