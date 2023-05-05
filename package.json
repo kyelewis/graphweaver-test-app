@@ -3,23 +3,25 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"scripts": {
-		"build": "echo 'not implemented yet'",
-		"start": "echo 'not implemented yet'",
-		"prettier": "prettier --write .",
-		"lint": "eslint --fix .",
-		"test": "npm run test:prettier && npm run test:tsc && npm run test:eslint && npm run test:unit",
-		"test:unit": "vitest run",
-		"test:prettier": "prettier --check .",
-		"test:tsc": "tsc --noEmit",
-		"test:eslint": "eslint ."
+		"build-config": "esbuild src/graphweaver-config.ts --format=cjs --outfile=graphweaver-config.js",
+		"build": "npm run build-config && graphweaver build",
+		"start": "npm run build-config && graphweaver start",
+		"format": "prettier --write .",
+		"test": "npm run test:prettier",
+		"test:format": "prettier --check ." 
 	},
 	"private": true,
 	"license": "UNLICENSED",
 	"dependencies": {
-		"@exogee/graphweaver": "0.1.2",
-		"@exogee/graphweaver-apollo": "0.1.2"
+		"@as-integrations/aws-lambda": "2.0.1",
+		"@exogee/graphweaver-apollo": "0.1.7",
+		"graphql": "16.6.0",
+		"reflect-metadata": "0.1.13"
 	},
 	"devDependencies": {
-		"@exogee/graphweaver-cli": "0.1.2"
+		"@exogee/graphweaver-cli": "0.1.7",
+		"esbuild": "0.17.18",
+		"eslint": "8.39.0",
+		"prettier": "2.8.8"
 	}
 }

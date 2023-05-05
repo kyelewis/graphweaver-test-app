@@ -1,5 +1,8 @@
+import 'reflect-metadata';
 import GraphweaverApollo from '@exogee/graphweaver-apollo';
-//import { startServerAndCreateLambdaHandler } from '@as-integrations/aws-lambda';
+import { handlers, startServerAndCreateLambdaHandler } from '@as-integrations/aws-lambda';
+
+console.log(process.env);
 
 const graphweaver = new GraphweaverApollo({
 	resolvers: [],
@@ -7,4 +10,8 @@ const graphweaver = new GraphweaverApollo({
 	mikroOrmOptions: []
 });
 
-//export const handler = startServerAndCreateLambdaHandler(graphweaver.server, {});
+export const handler = startServerAndCreateLambdaHandler(
+	graphweaver.server, 
+    handlers.createAPIGatewayProxyEventRequestHandler(),
+{});
+
