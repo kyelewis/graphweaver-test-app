@@ -52,7 +52,7 @@ const createField = (
 };
 
 export const createStaticResolver = ({ name, data }: any) => {
-  const entityName = `Static${caps(name)}`;
+  const entityName = `${caps(name)}`;
 
   // Create GraphQL Entity
   @ObjectType(entityName)
