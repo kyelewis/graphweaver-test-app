@@ -83,6 +83,9 @@ export const createStaticResolver = ({ name, data }: any) => {
   createField(StaticEntity, "valueAsBoolean", "boolean", function () {
     return Boolean(this.dataEntity.value);
   });
+  createField(StaticEntity, "type", "string", function () {
+    return typeof this.dataEntity.value
+  });
 
   // Create Resolver
   @Resolver(() => TransformedData)
