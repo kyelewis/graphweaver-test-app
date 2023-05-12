@@ -11,7 +11,7 @@ export class StaticProvider<D extends { id: string; value: any }, G>
   protected data: D;
 
   constructor(entityName: string, data: D) {
-    this.backendId = `KV-{entityName}`;
+    this.backendId = `KV-${entityName}`;
     this.data = data;
   }
 
