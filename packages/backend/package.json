@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@exogee/graphweaver-cli": "0.1.9",
-    "@kyedoesdev/graphweaver-app-kv-store": "workspace:*",
+    "@kyedoesdev/graphweaver-simple-key-value-store": "workspace:*",
     "esbuild": "0.17.18",
     "eslint": "8.39.0",
     "prettier": "2.8.8"

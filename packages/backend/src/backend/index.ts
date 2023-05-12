@@ -5,19 +5,22 @@ import {
   startServerAndCreateLambdaHandler,
 } from "@as-integrations/aws-lambda";
 
-import GraphweaverAppKVStore from "@kyedoesdev/graphweaver-app-kv-store";
+import GraphweaverSimpleKeyValueStore from "@kyedoesdev/graphweaver-simple-key-value-store";
 
-const app = new GraphweaverAppKVStore({
+const testKeyValueStore = new GraphweaverSimpleKeyValueStore({
   name: "test",
-  data: {
-    hello: "world",
-    its: 42,
-    nope: false,
+  data: () => {
+    return {
+      hello: "world",
+      its: 42,
+      nope: false,
+      current_server_time: Date.now(),
+    };
   },
 });
 
 const graphweaver = new GraphweaverApollo({
-  resolvers: [...app.resolvers()],
+  resolvers: [...testKeyValueStore.resolvers()],
   adminMetadata: { enabled: true },
   mikroOrmOptions: [],
 });

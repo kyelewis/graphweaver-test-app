@@ -1,5 +1,5 @@
 {
-  "name": "@kyedoesdev/graphweaver-app-kv-store",
+  "name": "@kyedoesdev/graphweaver-simple-key-value-store",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
@@ -20,6 +20,7 @@
     "typescript": "5.0.4"
   },
   "peerDependencies": {
-    "@exogee/graphweaver": "0.1.9"
+    "@exogee/graphweaver": "0.1.9",
+    "type-graphql": "2.0.0-beta.1"
   }
 }

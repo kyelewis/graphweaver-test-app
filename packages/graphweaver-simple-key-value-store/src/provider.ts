@@ -4,19 +4,20 @@ import {
   BackendProvider,
 } from "@exogee/graphweaver";
 
-export class StaticProvider<D extends { id: string; value: any }, G>
-  implements BackendProvider<D, G>
-{
+export class SimpleKeyValueProvider<D, G> implements BackendProvider<D, G> {
   public readonly backendId: string;
-  protected data: D;
+  protected dataFunction: () => D;
 
-  constructor(entityName: string, data: D) {
-    this.backendId = `KeyValueStore`;
-    this.data = data;
+  constructor(entityName: string, dataOrDataFunction: () => D | D) {
+    this.backendId = `SimpleKeyValueStore`;
+    this.dataFunction =
+      typeof dataOrDataFunction === "function"
+        ? dataOrDataFunction
+        : () => dataOrDataFunction;
   }
 
   private get transformedData() {
-    return Object.entries(this.data).map(([id, value]) => ({
+    return Object.entries(this.dataFunction()).map(([id, value]) => ({
       id,
       value,
     }));
