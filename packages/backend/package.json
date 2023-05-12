@@ -1,0 +1,30 @@
+{
+  "name": "@kyedoesdev/graphweaver-test-app-backend",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build-config": "esbuild src/graphweaver-config.ts --format=cjs --outfile=graphweaver-config.js",
+    "build": "npm run build-config && graphweaver build",
+    "start": "npm run build-config && graphweaver start",
+    "format": "prettier --write .",
+    "test": "npm run test:prettier",
+    "test:format": "prettier --check ."
+  },
+  "private": true,
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@as-integrations/aws-lambda": "2.0.1",
+    "@exogee/graphweaver": "0.1.9",
+    "@exogee/graphweaver-apollo": "0.1.9",
+    "graphql": "16.6.0",
+    "reflect-metadata": "0.1.13",
+    "type-graphql": "2.0.0-beta.1"
+  },
+  "devDependencies": {
+    "@exogee/graphweaver-cli": "0.1.9",
+    "@kyedoesdev/graphweaver-app-kv-store": "workspace:*",
+    "esbuild": "0.17.18",
+    "eslint": "8.39.0",
+    "prettier": "2.8.8"
+  }
+}
