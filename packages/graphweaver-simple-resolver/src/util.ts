@@ -1,4 +1,5 @@
 import { Float, Field } from "type-graphql";
+import { ReadOnly } from "@exogee/graphweaver";
 
 export const caps = (value: string): string =>
   `${value.charAt(0).toUpperCase()}${value.slice(1)}`;
@@ -20,6 +21,8 @@ export const createFieldOnClass = (
     Object.getOwnPropertyDescriptor(target.prototype, name)
   );
 };
+
+export const setClassReadOnly = (target: any) => ReadOnly(target.prototype);
 
 export const typeFunctionForType = (
   type: "string" | "float" | "boolean"

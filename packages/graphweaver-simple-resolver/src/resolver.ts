@@ -1,15 +1,19 @@
 import { GraphQLEntity, createBaseResolver } from "@exogee/graphweaver";
 import { Resolver, Field, ObjectType, ID } from "type-graphql";
 
-import { caps, createFieldOnClass, setNameOnClass } from "./util";
+import {
+  caps,
+  createFieldOnClass,
+  setNameOnClass,
+  setClassReadOnly,
+} from "./util";
 import { SimpleProvider } from "./provider";
 import type { ItemValue, Item, FieldOptions, Options } from "./types";
 
 export const createSimpleResolver = <D extends Item, Ctx>(
   options: Options<D, Ctx>
 ) => {
-  const { name, fields } = options;
-
+  const { name, fields, create, update, remove } = options;
   const entityName = caps(name);
 
   // Create GraphQL Entity
@@ -23,11 +27,25 @@ export const createSimpleResolver = <D extends Item, Ctx>(
 
   setNameOnClass(SimpleEntity, entityName);
 
+  if (!create && !update && !remove) setClassReadOnly(SimpleEntity);
+
   // Create fields on the class
-  for (const { name: fieldName, type: fieldType } of fields) {
-    createFieldOnClass(SimpleEntity, fieldName, fieldType, function () {
-      return this.dataEntity[fieldName];
-    });
+  for (const {
+    name: fieldName,
+    type: fieldType,
+    resolve: fieldResolve,
+    optional: fieldOptional = true,
+  } of fields) {
+    createFieldOnClass(
+      SimpleEntity,
+      fieldName,
+      fieldType,
+      function () {
+        if (fieldResolve) return fieldResolve(this.dataEntity);
+        return this.dataEntity[fieldName];
+      },
+      { nullable: fieldOptional }
+    );
   }
 
   // Create Base Resolver
@@ -40,5 +58,5 @@ export const createSimpleResolver = <D extends Item, Ctx>(
 
   setNameOnClass(SimpleResolver, `${entityName}Resolver`);
 
-  return SimpleResolver;
+  return { entity: SimpleEntity, resolver: SimpleResolver };
 };

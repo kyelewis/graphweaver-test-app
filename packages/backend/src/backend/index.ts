@@ -6,7 +6,7 @@ import {
 } from "@as-integrations/aws-lambda";
 import { faker } from "@faker-js/faker";
 
-import { system} from "./system";
+import { system } from "./system";
 import { user } from "./user";
 
 const graphweaver = new GraphweaverApollo({

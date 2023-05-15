@@ -1,23 +1,55 @@
-import { createSimpleKeyValueStoreResolver } from "./resolver";
+import GraphweaverSimpleResolver from "@kyedoesdev/graphweaver-simple-resolver";
 
-export type DataValue = string | number | boolean;
-export type Data =
-  | (() => Record<string, DataValue>)
-  | Record<string, DataValue>;
+type Value = string | number | boolean;
+
+type Data = (() => Record<string, Value>) | Record<string, Value>;
 
 export interface Options<D extends Data> {
   name: string;
   data: D;
 }
 
-export default class GraphweaverSimpleKeyValueStore<D extends Data> {
-  private resolver;
+export const createSimpleKeyValueStore = <D>({
+  name,
+  data: dataOrDataFn,
+}: Options<D>) => {
+  const data =
+    typeof dataOrDataFn === "function" ? dataOrDataFn : () => dataOrDataFn;
 
-  constructor(private options: Options<D>) {
-    this.resolver = createSimpleKeyValueStoreResolver(this.options);
-  }
+  const transformedData = () =>
+    Object.entries(data()).map(([id, value]) => ({
+      id,
+      value,
+    }));
 
-  public resolvers() {
-    return [this.resolver];
-  }
-}
+  return new GraphweaverSimpleResolver({
+    name,
+    fields: [
+      {
+        name: "valueAsString",
+        type: "string",
+        resolve: (data) => String(data?.value),
+      },
+      {
+        name: "valueAsFloat",
+        type: "float",
+        resolve: (data) => {
+          const number = Number(data?.value);
+          return Number.isNaN(number) ? null : number;
+        },
+      },
+      {
+        name: "valueAsBoolean",
+        type: "boolean",
+        resolve: (data) => Boolean(data?.value),
+      },
+    ],
+    read: (filter) => {
+      if (filter?.id) {
+        return transformedData().find((item) => item.id === filter.id);
+      } else {
+        return transformedData();
+      }
+    },
+  });
+};

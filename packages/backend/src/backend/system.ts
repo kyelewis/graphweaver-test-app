@@ -1,6 +1,6 @@
-import GraphweaverSimpleKeyValueStore from "@kyedoesdev/graphweaver-simple-key-value-store";
+import { createSimpleKeyValueStore } from "@kyedoesdev/graphweaver-simple-key-value-store";
 
-export const system = new GraphweaverSimpleKeyValueStore({
+export const system = createSimpleKeyValueStore({
   name: "system",
   data: () => {
     return {
