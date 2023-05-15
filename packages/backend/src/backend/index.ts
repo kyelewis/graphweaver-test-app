@@ -4,23 +4,13 @@ import {
   handlers,
   startServerAndCreateLambdaHandler,
 } from "@as-integrations/aws-lambda";
+import { faker } from "@faker-js/faker";
 
-import GraphweaverSimpleKeyValueStore from "@kyedoesdev/graphweaver-simple-key-value-store";
-
-const testKeyValueStore = new GraphweaverSimpleKeyValueStore({
-  name: "test",
-  data: () => {
-    return {
-      hello: "world",
-      its: 42,
-      nope: false,
-      current_server_time: Date.now(),
-    };
-  },
-});
+import { system} from "./system";
+import { user } from "./user";
 
 const graphweaver = new GraphweaverApollo({
-  resolvers: [...testKeyValueStore.resolvers()],
+  resolvers: [...system.resolvers(), ...user.resolvers()],
   adminMetadata: { enabled: true },
   mikroOrmOptions: [],
 });

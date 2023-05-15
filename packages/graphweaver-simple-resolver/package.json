@@ -1,0 +1,26 @@
+{
+  "name": "@kyedoesdev/graphweaver-simple-resolver",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle '--external:@exogee/graphweaver' '--external:type-graphql' --platform=node --outdir=dist --format=cjs",
+    "format": "prettier --write .",
+    "test": "npm run test:format && npm run test:typescript",
+    "test:typescript": "tsc --noEmit src/*.ts",
+    "test:format": "prettier --check ."
+  },
+  "private": true,
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@exogee/graphweaver": "0.1.9",
+    "esbuild": "0.17.18",
+    "prettier": "2.8.8",
+    "reflect-metadata": "0.1.13",
+    "type-graphql": "2.0.0-beta.1",
+    "typescript": "5.0.4"
+  },
+  "peerDependencies": {
+    "@exogee/graphweaver": "0.1.9",
+    "type-graphql": "2.0.0-beta.1"
+  }
+}
