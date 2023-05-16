@@ -6,7 +6,7 @@ import { createResolver, createProvider } from '@exogee/graphweaver-helpers';
 
 import { caps, addResolveToFields, mapContentfulItem } from "./util";
 
-export const createContentfulResolver = (config, content_type) => {
+export const createContentfulResolver = (clientConfig, content_type) => {
   const schemaPath = join(
     cwd(),
     ".graphweaver",
@@ -21,11 +21,7 @@ export const createContentfulResolver = (config, content_type) => {
     provider: createProvider({
       backendId: "Contentful",
       init: async () => {
-        const client = createClient({
-          space: process.env.CONTENTFUL_SPACE_ID,
-          accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-        });
-        return { client };
+        return { client: createClient(clientConfig) }
       },
       read: async ({ client }, filter, pagination) => {
         if (filter?.id)

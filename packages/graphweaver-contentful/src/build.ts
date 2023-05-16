@@ -5,12 +5,12 @@ import { createClient, ContentfulTypeField } from "contentful";
 
 import { fieldFromContentfulTypeField } from "./util";
 
-export const buildContentfulSchema = async (options, content_type) => {
+export const buildContentfulSchema = async (clientConfig, content_type) => {
   const schemaDir = join(cwd(), ".graphweaver", "contentful");
   const schemaFile = join(schemaDir, `${content_type}.schema.json`);
 
   // Get 'profile' content type
-  const client = createClient(options);
+  const client = createClient(clientConfig);
   const contentType = await client.getContentType(content_type);
 
   // Map fields to simple-resolver fields
