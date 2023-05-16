@@ -5,8 +5,8 @@
   "scripts": {
     "build-config": "esbuild src/graphweaver-config.ts --format=cjs --outfile=graphweaver-config.js",
     "pre-build": "node -r esbuild-register src/backend/build",
-    "build": "npm run build-config && npm run pre-build && graphweaver build",
-    "start": "npm run build-config && npm run pre-build && graphweaver start",
+    "build": "pnpm build-config && pnpm pre-build && graphweaver build",
+    "start": "pnpm build-config && pnpm pre-build && graphweaver start",
     "format": "prettier --write .",
     "test": "npm run test:prettier",
     "test:format": "prettier --check ."

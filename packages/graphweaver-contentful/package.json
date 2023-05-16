@@ -28,6 +28,7 @@
     "type-graphql": "2.0.0-beta.1"
   },
   "dependencies": {
-    "@exogee/graphweaver-helpers": "workspace:*"
+    "@exogee/graphweaver-helpers": "workspace:*",
+    "contentful": "10.2.0"
   }
 }
