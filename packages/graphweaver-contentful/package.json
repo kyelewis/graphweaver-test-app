@@ -1,5 +1,5 @@
 {
-  "name": "@kyedoesdev/graphweaver-contentful",
+  "name": "@exogee/graphweaver-contentful",
   "version": "1.0.0",
   "main": "dist/index.js",
   "exports": {
@@ -28,6 +28,6 @@
     "type-graphql": "2.0.0-beta.1"
   },
   "dependencies": {
-    "@kyedoesdev/graphweaver-simple-resolver": "workspace:*"
+    "@exogee/graphweaver-helpers": "workspace:*"
   }
 }

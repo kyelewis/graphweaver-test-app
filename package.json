@@ -4,6 +4,8 @@
 	"private": true,
 	"license": "UNLICENSED",
         "scripts": {
+          "build": "pnpm --recursive --filter '@exogee/graphweaver-helpers' build && pnpm --recursive --filter '@exogee/graphweaver-contentful' --filter '@exogee/graphweaver-key-value-store' build",
+          "start": "pnpm --recursive start",
           "format": "pnpm --recursive format"
         }
 }

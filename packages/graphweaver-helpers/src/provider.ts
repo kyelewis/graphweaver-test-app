@@ -4,9 +4,20 @@ import {
   BackendProvider,
 } from "@exogee/graphweaver";
 
-import type { ProviderOptions } from "./types";
+export interface ProviderOptions<D, Ctx> {
+  init?(): Promise<Ctx>;
+  create(ctx: Ctx, data: D): Promise<D>;
+  read?(ctx: Ctx, filter?: any, pagination?: any): Promise<Array<D>>;
+  update?(ctx: Ctx, id: string, data: D): Promise<D>;
+  remove?(ctx: Ctx, id: string): Promise<boolean>;
+  backendId: string;
+}
 
-export class SimpleProvider<D, G, Ctx> implements BackendProvider<D, G> {
+export const createProvider = <D, G, Ctx>(
+    options: ProviderOptions<D, Ctx>,
+    ) => {
+
+class Provider<D, G, Ctx> implements BackendProvider<D, G> {
   public readonly backendId: string;
 
   protected create: ProviderOptions<D, Ctx>["create"];
@@ -18,8 +29,7 @@ export class SimpleProvider<D, G, Ctx> implements BackendProvider<D, G> {
   private context: Ctx;
 
   constructor(
-    { create, read, update, remove, init }: ProviderOptions<D, Ctx>,
-    backendId
+    { create, read, update, remove, init, backendId }: ProviderOptions<D, Ctx>,
   ) {
     this.backendId = backendId;
     this.create = create;
@@ -104,3 +114,7 @@ export class SimpleProvider<D, G, Ctx> implements BackendProvider<D, G> {
     return false;
   }
 }
+
+ return new Provider(options);
+
+};

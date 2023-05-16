@@ -1,17 +1,17 @@
-import { createContentfulResolver } from "@kyedoesdev/graphweaver-contentful";
+import { createContentfulResolver } from "@exogee/graphweaver-contentful";
 import { clientOptions } from "./client";
 
-export const contentfulArticle = createContentfulResolver(
+export const article = createContentfulResolver(
   clientOptions,
   "article"
 );
 
-export const contentfulPersonProfile = createContentfulResolver(
+export const personProfile = createContentfulResolver(
   clientOptions,
   "personProfile"
 );
 
-export const contentfulLink = createContentfulResolver(
+export const link = createContentfulResolver(
   clientOptions,
   "link"
 );

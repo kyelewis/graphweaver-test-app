@@ -18,8 +18,8 @@
     "@exogee/graphweaver": "0.1.9",
     "@exogee/graphweaver-apollo": "0.1.9",
     "@faker-js/faker": "8.0.0",
-    "@kyedoesdev/graphweaver-simple-key-value-store": "workspace:*",
-    "@kyedoesdev/graphweaver-simple-resolver": "workspace:*",
+    "@exogee/graphweaver-key-value-store": "workspace:*",
+    "@exogee/graphweaver-contentful": "workspace:*",
     "contentful": "10.2.0",
     "graphql": "16.6.0",
     "reflect-metadata": "0.1.13",
@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "@exogee/graphweaver-cli": "0.1.9",
-    "@kyedoesdev/graphweaver-contentful": "workspace:*",
     "dotenv-cli": "7.2.1",
     "esbuild": "0.17.18",
     "esbuild-register": "3.4.2",

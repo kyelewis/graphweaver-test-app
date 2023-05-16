@@ -1,4 +1,4 @@
-import { buildContentfulSchema } from "@kyedoesdev/graphweaver-contentful/build";
+import { buildContentfulSchema } from "@exogee/graphweaver-contentful/build";
 import { clientOptions } from "./client";
 
 export const build = async () => {

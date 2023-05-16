@@ -1,4 +1,4 @@
-import GraphweaverSimpleResolver from "@kyedoesdev/graphweaver-simple-resolver";
+import { createResolver, createProvider }from "@exogee/graphweaver-helpers";
 
 type Value = string | number | boolean;
 
@@ -22,7 +22,7 @@ export const createSimpleKeyValueStore = <D>({
       value,
     }));
 
-  return new GraphweaverSimpleResolver({
+  return createResolver({
     name,
     fields: [
       {
@@ -44,7 +44,8 @@ export const createSimpleKeyValueStore = <D>({
         resolve: (data) => Boolean(data?.value),
       },
     ],
-    provider: {
+    provider: createProvider({
+      backendId: `KeyValueStore`,
       read: (filter) => {
         if (filter?.id) {
           return transformedData().find((item) => item.id === filter.id);
@@ -52,6 +53,6 @@ export const createSimpleKeyValueStore = <D>({
           return transformedData();
         }
       },
-    },
+    }),
   });
 };

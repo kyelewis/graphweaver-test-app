@@ -1,5 +1,5 @@
 {
-  "name": "@kyedoesdev/graphweaver-simple-key-value-store",
+  "name": "@exogee/graphweaver-helpers",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
@@ -22,8 +22,5 @@
   "peerDependencies": {
     "@exogee/graphweaver": "0.1.9",
     "type-graphql": "2.0.0-beta.1"
-  },
-  "dependencies": {
-    "@kyedoesdev/graphweaver-simple-resolver": "workspace:*"
   }
 }

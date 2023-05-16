@@ -1,4 +1,4 @@
-import { createSimpleKeyValueStore } from "@kyedoesdev/graphweaver-simple-key-value-store";
+import { createSimpleKeyValueStore } from "@exogee/graphweaver-key-value-store";
 
 export const system = createSimpleKeyValueStore({
   name: "system",

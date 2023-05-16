@@ -2,9 +2,8 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { createClient } from "contentful";
-import GraphweaverSimpleResolver, {
-  FieldOptions,
-} from "@kyedoesdev/graphweaver-simple-resolver";
+import { createResolver, createProvider } from '@exogee/graphweaver-helpers';
+
 import { caps, addResolveToFields, mapContentfulItem } from "./util";
 
 export const createContentfulResolver = (config, content_type) => {
@@ -16,11 +15,11 @@ export const createContentfulResolver = (config, content_type) => {
   );
   const fields = addResolveToFields(JSON.parse(readFileSync(schemaPath)));
 
-  return new GraphweaverSimpleResolver({
+  return createResolver({
     name: `contentful${caps(content_type)}`,
     fields,
-    backendId: "Contentful",
-    provider: {
+    provider: createProvider({
+      backendId: "Contentful",
       init: async () => {
         const client = createClient({
           space: process.env.CONTENTFUL_SPACE_ID,
@@ -35,6 +34,7 @@ export const createContentfulResolver = (config, content_type) => {
           mapContentfulItem(item, fields)
         );
       },
-    },
+    }),
   });
+
 };
