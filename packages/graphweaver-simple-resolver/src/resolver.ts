@@ -6,18 +6,23 @@ import {
   createFieldOnClass,
   setNameOnClass,
   setClassReadOnly,
+  isBackendProvider,
 } from "./util";
 import { SimpleProvider } from "./provider";
 import type { ItemValue, Item, FieldOptions, Options } from "./types";
 
-export const createSimpleResolver = <D extends Item, Ctx>(
-  options: Options<D, Ctx>
-) => {
-  const { name, fields, create, update, remove } = options;
+export const createSimpleResolver = <D extends Item, Ctx>({
+  name,
+  fields,
+  provider,
+  backendId,
+}: Options<D, Ctx>) => {
   const entityName = caps(name);
 
-  // Create Provider
-  const Provider = new SimpleProvider(options);
+  // Create or use existing provider
+  const Provider = isBackendProvider(provider)
+    ? provider
+    : new SimpleProvider(provider, backendId || "SimpleResolver");
 
   // Create GraphQL Entity
   @ObjectType(entityName)
@@ -29,7 +34,8 @@ export const createSimpleResolver = <D extends Item, Ctx>(
   }
 
   setNameOnClass(SimpleEntity, entityName);
-  if (!create && !update && !remove) setClassReadOnly(SimpleEntity);
+  if (!provider.create && !provider.update && !provider.remove)
+    setClassReadOnly(SimpleEntity);
 
   // Create fields on the class
   for (const {

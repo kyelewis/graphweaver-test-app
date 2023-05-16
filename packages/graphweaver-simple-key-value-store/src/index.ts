@@ -44,12 +44,14 @@ export const createSimpleKeyValueStore = <D>({
         resolve: (data) => Boolean(data?.value),
       },
     ],
-    read: (filter) => {
-      if (filter?.id) {
-        return transformedData().find((item) => item.id === filter.id);
-      } else {
-        return transformedData();
-      }
+    provider: {
+      read: (filter) => {
+        if (filter?.id) {
+          return transformedData().find((item) => item.id === filter.id);
+        } else {
+          return transformedData();
+        }
+      },
     },
   });
 };

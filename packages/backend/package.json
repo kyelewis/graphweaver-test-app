@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@exogee/graphweaver-cli": "0.1.9",
+    "@kyedoesdev/graphweaver-contentful": "workspace:*",
     "dotenv-cli": "7.2.1",
     "esbuild": "0.17.18",
     "esbuild-register": "3.4.2",

@@ -4,26 +4,29 @@ import {
   BackendProvider,
 } from "@exogee/graphweaver";
 
-import { Options } from "./types";
+import type { ProviderOptions } from "./types";
 
 export class SimpleProvider<D, G, Ctx> implements BackendProvider<D, G> {
   public readonly backendId: string;
 
-  protected create: Options["create"];
-  protected read: Options["read"];
-  protected update: Options["update"];
-  protected remove: Options["remove"];
-  protected initFn: Options["init"];
+  protected create: ProviderOptions<D, Ctx>["create"];
+  protected read: ProviderOptions<D, Ctx>["read"];
+  protected update: ProviderOptions<D, Ctx>["update"];
+  protected remove: ProviderOptions<D, Ctx>["remove"];
+  protected initFn: Promise<Ctx>;
 
   private context: Ctx;
 
-  constructor({ name, create, read, update, remove, init }: Options<D>) {
-    this.backendId = `SimpleResolver`;
+  constructor(
+    { create, read, update, remove, init }: ProviderOptions<D, Ctx>,
+    backendId
+  ) {
+    this.backendId = backendId;
     this.create = create;
     this.read = read;
     this.update = update;
     this.remove = remove;
-    this.initFn = new Promise(async (resolve, reject) => {
+    this.initFn = new Promise<Ctx>(async (resolve, reject) => {
       this.context = await init?.();
       resolve(this.context);
     });

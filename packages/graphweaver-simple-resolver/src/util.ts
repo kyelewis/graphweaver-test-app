@@ -1,5 +1,7 @@
 import { Float, Field } from "type-graphql";
 import { ReadOnly } from "@exogee/graphweaver";
+import type { BackendProvider } from "@exogee/graphweaver";
+import type { ProviderOptions } from "./types";
 
 export const caps = (value: string): string =>
   `${value.charAt(0).toUpperCase()}${value.slice(1)}`;
@@ -36,3 +38,5 @@ export const typeFunctionForType = (
       return () => Boolean;
   }
 };
+
+export const isBackendProvider = (provider: any) => "dataEntity" in provider;
