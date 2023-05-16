@@ -7,10 +7,15 @@ import {
 import { faker } from "@faker-js/faker";
 
 import { system } from "./system";
-import { user } from "./user";
+//import { user } from "./user";
+import { contentful } from "./contentful";
 
 const graphweaver = new GraphweaverApollo({
-  resolvers: [...system.resolvers(), ...user.resolvers()],
+  resolvers: [
+    ...system.resolvers(),
+    //...user.resolvers(),
+    ...contentful.resolvers(),
+  ],
   adminMetadata: { enabled: true },
   mikroOrmOptions: [],
 });

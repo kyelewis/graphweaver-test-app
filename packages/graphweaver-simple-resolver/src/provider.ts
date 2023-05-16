@@ -8,13 +8,14 @@ import { Options } from "./types";
 
 export class SimpleProvider<D, G, Ctx> implements BackendProvider<D, G> {
   public readonly backendId: string;
+
   protected create: Options["create"];
   protected read: Options["read"];
   protected update: Options["update"];
   protected remove: Options["remove"];
+  protected initFn: Options["init"];
 
-  public context: Ctx | undefined = undefined;
-  private init: Promise<Ctx>;
+  private context: Ctx;
 
   constructor({ name, create, read, update, remove, init }: Options<D>) {
     this.backendId = `SimpleResolver`;
@@ -22,10 +23,14 @@ export class SimpleProvider<D, G, Ctx> implements BackendProvider<D, G> {
     this.read = read;
     this.update = update;
     this.remove = remove;
-    this.init = new Promise(async (resolve) => {
+    this.initFn = new Promise(async (resolve, reject) => {
       this.context = await init?.();
-      resolve();
+      resolve(this.context);
     });
+  }
+
+  public init() {
+    return this.initFn;
   }
 
   async find(filter: Filter<G>, pagination?: PaginationOptions): Promise<D[]> {
@@ -35,56 +40,56 @@ export class SimpleProvider<D, G, Ctx> implements BackendProvider<D, G> {
   }
 
   async findOne(filter: Filter<G>): Promise<D | null> {
-    await this.init;
-    console.log("findOne");
+    await this.initFn;
     const result = await this.read(this.context, filter);
-    console.log("Found", result);
     const oneResult = Array.isArray(result) ? result?.[0] : result;
     return oneResult || null;
   }
 
-  findByRelatedId(
+  async findByRelatedId(
     entity: any,
     relatedField: string,
     relatedIds: readonly string[],
     filter?: Filter<G>
   ): Promise<D[]> {
+    await this.initFn;
     throw new Error("Not implemented: findByRelatedId");
   }
 
   async updateOne(id: string, updateArgs: Partial<G>): Promise<D> {
+    await this.initFn;
     if (!this.update) throw new Error("update not available");
-    await this.init;
     return this.update(this.context, id, updateArgs);
   }
 
   async updateMany(entities: Partial<G>[]): Promise<D[]> {
+    await this.initFn;
     if (!this.update) throw new Error("update not available");
-    await this.init;
     throw new Error("Not implemented: updateMany");
   }
 
   async createOne(entity: Partial<G>): Promise<D> {
+    await this.initFn;
     if (!this.create) throw new Error("create not available");
-    await this.init;
     return this.create(this.context, entity);
   }
 
   async createMany(entities: Partial<G>[]): Promise<D[]> {
+    await this.initFn;
     if (!this.create) throw new Error("create not available");
-    await this.init;
     throw new Error("Not implemented: createMany");
   }
 
   async createOrUpdateMany(entities: Partial<G>[]): Promise<D[]> {
+    await this.initFn;
     if (!this.update || !this.create)
       throw new Error("create/update not available");
     throw new Error("Not implemented: createOrUpdateMany");
   }
 
   async deleteOne(filter: Filter<G>): Promise<boolean> {
+    await this.initFn;
     if (!this.remove) throw new Error("delete not available");
-    await this.init;
     throw new Error("Not implemented: deleteOne");
   }
 

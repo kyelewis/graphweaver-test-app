@@ -16,6 +16,9 @@ export const createSimpleResolver = <D extends Item, Ctx>(
   const { name, fields, create, update, remove } = options;
   const entityName = caps(name);
 
+  // Create Provider
+  const Provider = new SimpleProvider(options);
+
   // Create GraphQL Entity
   @ObjectType(entityName)
   class SimpleEntity extends GraphQLEntity<D> {
@@ -26,7 +29,6 @@ export const createSimpleResolver = <D extends Item, Ctx>(
   }
 
   setNameOnClass(SimpleEntity, entityName);
-
   if (!create && !update && !remove) setClassReadOnly(SimpleEntity);
 
   // Create fields on the class
@@ -41,7 +43,7 @@ export const createSimpleResolver = <D extends Item, Ctx>(
       fieldName,
       fieldType,
       function () {
-        if (fieldResolve) return fieldResolve(this.dataEntity);
+        if (fieldResolve) return fieldResolve(this.dataEntity, fieldName);
         return this.dataEntity[fieldName];
       },
       { nullable: fieldOptional }
@@ -53,7 +55,7 @@ export const createSimpleResolver = <D extends Item, Ctx>(
   @Resolver(() => SimpleEntity)
   class SimpleResolver extends createBaseResolver<any, any>(
     SimpleEntity,
-    new SimpleProvider(options)
+    Provider
   ) {}
 
   setNameOnClass(SimpleResolver, `${entityName}Resolver`);

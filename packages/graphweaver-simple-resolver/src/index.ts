@@ -6,7 +6,7 @@ export default class GraphweaverSimpleResolver<D extends Item> {
   private entity;
 
   constructor(options: Options<D>) {
-    const { resolver, entity } = createSimpleResolver(options);
+    const { entity, resolver } = createSimpleResolver(options);
     this.resolver = resolver;
     this.entity = entity;
   }

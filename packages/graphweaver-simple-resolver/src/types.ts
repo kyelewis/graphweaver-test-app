@@ -7,13 +7,15 @@ export type Item =
 export interface FieldOptions<D> {
   name: string;
   type: "string" | "float" | "boolean" | "json";
-  resolver?(data: D): any;
+  resolve?(data: D, fieldName: string): any;
   optional?: boolean;
 }
 
 export interface Options<D extends Item, Ctx> {
   name: string;
-  fields: Array<FieldOptions<D>>;
+  fields:
+    | Array<FieldOptions<D>>
+    | ((ctx: Ctx) => Promise<Array<FieldOptions<D>>>);
   init?(): Promise<Ctx>;
   create(ctx: Ctx, data: D): Promise<D>;
   read?(ctx: Ctx, filter?: any, pagination?: any): Promise<Array<D>>;

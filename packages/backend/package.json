@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "build-config": "esbuild src/graphweaver-config.ts --format=cjs --outfile=graphweaver-config.js",
-    "build": "npm run build-config && graphweaver build",
-    "start": "npm run build-config && graphweaver start",
+    "build-config": "dotenv -- esbuild src/graphweaver-config.ts --format=cjs --outfile=graphweaver-config.js",
+    "pre-build": "dotenv -- node -r esbuild-register src/backend/build",
+    "build": "npm run build-config && npm run pre-build && dotenv -- graphweaver build",
+    "start": "npm run build-config && npm run pre-build &&  dotenv -- graphweaver start",
     "format": "prettier --write .",
     "test": "npm run test:prettier",
     "test:format": "prettier --check ."
@@ -19,6 +20,7 @@
     "@faker-js/faker": "8.0.0",
     "@kyedoesdev/graphweaver-simple-key-value-store": "workspace:*",
     "@kyedoesdev/graphweaver-simple-resolver": "workspace:*",
+    "contentful": "10.2.0",
     "graphql": "16.6.0",
     "reflect-metadata": "0.1.13",
     "sqlite": "4.2.0",
@@ -27,7 +29,9 @@
   },
   "devDependencies": {
     "@exogee/graphweaver-cli": "0.1.9",
+    "dotenv-cli": "7.2.1",
     "esbuild": "0.17.18",
+    "esbuild-register": "3.4.2",
     "eslint": "8.39.0",
     "prettier": "2.8.8"
   }
