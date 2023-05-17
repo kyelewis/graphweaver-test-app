@@ -4,9 +4,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build-config": "esbuild src/graphweaver-config.ts --format=cjs --outfile=graphweaver-config.js",
-    "pre-build": "node -r esbuild-register src/backend/build",
-    "build": "pnpm build-config && pnpm pre-build && graphweaver build",
-    "start": "pnpm build-config && pnpm pre-build && graphweaver start",
+    "pre-build": "dotenv -- node -r esbuild-register src/backend/build",
+    "build": "pnpm build-config && pnpm pre-build && dotenv -- graphweaver build",
+    "start": "pnpm build-config && pnpm pre-build && dotenv -- graphweaver start",
     "format": "prettier --write .",
     "test": "npm run test:prettier",
     "test:format": "prettier --check ."
@@ -17,8 +17,9 @@
     "@as-integrations/aws-lambda": "2.0.1",
     "@exogee/graphweaver": "0.1.9",
     "@exogee/graphweaver-apollo": "0.1.9",
-    "@exogee/graphweaver-key-value-store": "workspace:*",
     "@exogee/graphweaver-contentful": "workspace:*",
+    "@exogee/graphweaver-key-value-store": "workspace:*",
+    "dotenv-cli": "7.2.1",
     "graphql": "16.6.0",
     "reflect-metadata": "0.1.13",
     "type-graphql": "2.0.0-beta.1"
