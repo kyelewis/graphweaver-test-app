@@ -5,10 +5,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "pnpm --recursive --filter '@exogee/graphweaver-helpers' build && pnpm --recursive --filter '@exogee/graphweaver-contentful' --filter '@exogee/graphweaver-key-value-store' build",
-    "start": "dotenv -- pnpm --recursive start",
+    "start": "pnpm --recursive start",
     "format": "pnpm --recursive format"
-  },
-  "devDependencies": {
-    "dotenv-cli": "7.2.1"
   }
 }

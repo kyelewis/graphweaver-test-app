@@ -6,7 +6,7 @@ From the workspace root:
 `pnpm build`
 
 - Fill in .env
-In `.env`, add CONTENTFUL_ACCESS_TOKEN and CONTENTFUL_SPACE_ID
+In `packages/backend/.env`, add CONTENTFUL_ACCESS_TOKEN and CONTENTFUL_SPACE_ID
 
 - Run Graphweaver
 `pnpm start`
