@@ -8,16 +8,6 @@ export const article = createContentfulResolver(
   "article"
 );
 
-export const personProfile = createContentfulResolver(
-  clientOptions,
-  "personProfile"
-);
-
-export const link = createContentfulResolver(
-  clientOptions,
-  "link"
-);
-
 export const Search = createContentfulSearch(
   { articleEntity: () => article.entity }
 );
